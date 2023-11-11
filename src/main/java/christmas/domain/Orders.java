@@ -8,6 +8,8 @@ import java.util.Set;
 
 public class Orders {
 
+    private static final int MAX_ORDER_COUNT = 20;
+
     private final List<Order> orders;
 
     public Orders(List<Order> orders) {
@@ -18,6 +20,8 @@ public class Orders {
     private void validate(List<Order> orders) throws IllegalArgumentException {
         this.validateIsNotEmpty(orders);
         this.validateIsNotDuplicated(orders);
+        this.validateOnlyBeverageOrder(orders);
+        this.validateTotalOderCount(orders);
     }
 
     private void validateIsNotEmpty(List<Order> orders) throws IllegalArgumentException {
@@ -33,6 +37,27 @@ public class Orders {
                 throw new IllegalArgumentException(ErrorMessage.ORDERS_IS_NOT_INVALID.message());
             }
         });
+    }
+
+    private void validateOnlyBeverageOrder(List<Order> orders) {
+        int beverageOrderCount = orders.stream()
+                .filter(Order::isBeverageOrder)
+                .toList()
+                .size();
+
+        if (orders.size() == beverageOrderCount) {
+            throw new IllegalArgumentException(ErrorMessage.ORDERS_IS_NOT_INVALID.message());
+        }
+    }
+
+    private void validateTotalOderCount(List<Order> orders) {
+        int totalOrderCount = orders.stream()
+                .mapToInt(Order::getCount)
+                .sum();
+
+        if (totalOrderCount > MAX_ORDER_COUNT) {
+            throw new IllegalArgumentException(ErrorMessage.ORDERS_IS_NOT_INVALID.message());
+        }
     }
 
     @Override

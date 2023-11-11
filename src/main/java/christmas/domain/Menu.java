@@ -35,9 +35,9 @@ public enum Menu {
     }
 
     private final String menuName;
+
     private final int price;
     private final Category category;
-
     Menu(String menuName, int price, Category category) {
         this.menuName = menuName;
         this.price = price;
@@ -51,5 +51,9 @@ public enum Menu {
 
     public String getMenuName() {
         return menuName;
+    }
+
+    public boolean isBeverage() {
+        return category.equals(Category.BEVERAGE);
     }
 }

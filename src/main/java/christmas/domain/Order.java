@@ -26,6 +26,14 @@ public class Order {
         return new Order(menu, count);
     }
 
+    protected int getCount() {
+        return count;
+    }
+
+    public boolean isBeverageOrder() {
+        return menu.isBeverage();
+    }
+
     @Override
     public boolean equals(Object target) {
         if (this == target) return true;
