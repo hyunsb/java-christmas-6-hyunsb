@@ -1,5 +1,7 @@
 package christmas.domain.order;
 
+import christmas.dto.OrderMenuDto;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
@@ -12,6 +14,14 @@ public class Order {
     public Order(VisitDate visitDate, OrderMenus orderMenus) {
         this.visitDate = visitDate;
         this.orderMenus = orderMenus;
+    }
+
+    public List<OrderMenuDto> getOrderMenuDtos() {
+        return orderMenus.getOrderMenuDtos();
+    }
+
+    public int getTotalOrderAmount() {
+        return orderMenus.calculateTotalOrderAmount();
     }
 
     public boolean isVisitDateInRange(LocalDate startDate, LocalDate endDate) {
@@ -32,11 +42,11 @@ public class Order {
     }
 
     public int getTotalCountOfMainMenu() {
-        return orderMenus.getTotalCountOfMainMenu();
+        return orderMenus.calculateTotalCountOfMainMenu();
     }
 
     public int getTotalCountOfDessertMenu() {
-        return orderMenus.getTotalCountOfDessertMenu();
+        return orderMenus.calcualteTotalCountOfDessertMenu();
     }
 
     public boolean isVisitDateOnDays(List<Integer> days) {

@@ -1,13 +1,10 @@
 package christmas.domain.order;
 
-import christmas.domain.benefit.Gift;
 import christmas.dto.OrderMenuDto;
-import christmas.dto.OrderMenusDto;
 import christmas.errors.ErrorMessage;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 public class OrderMenus {
@@ -64,34 +61,26 @@ public class OrderMenus {
         }
     }
 
-    public OrderMenusDto toDto() {
-        List<OrderMenuDto> orderMenuDtos = this.getOrderDtos();
-        int totalOrderAmount = this.calculateTotalOrderAmount();
-        Optional<Gift> gift = Gift.select(totalOrderAmount);
-
-        return new OrderMenusDto(orderMenuDtos, totalOrderAmount, gift);
-    }
-
-    private List<OrderMenuDto> getOrderDtos() {
+    public List<OrderMenuDto> getOrderMenuDtos() {
         return orderMenus.stream()
                 .map(OrderMenu::toDto)
                 .toList();
     }
 
-    private int calculateTotalOrderAmount() {
+    public int calculateTotalOrderAmount() {
         return orderMenus.stream()
                 .mapToInt(OrderMenu::getAmount)
                 .sum();
     }
 
-    public int getTotalCountOfMainMenu() {
+    public int calculateTotalCountOfMainMenu() {
         return orderMenus.stream()
                 .filter(OrderMenu::isMainOrder)
                 .mapToInt(OrderMenu::getCount)
                 .sum();
     }
 
-    public int getTotalCountOfDessertMenu() {
+    public int calcualteTotalCountOfDessertMenu() {
         return orderMenus.stream()
                 .filter(OrderMenu::isDessertOrder)
                 .mapToInt(OrderMenu::getCount)
