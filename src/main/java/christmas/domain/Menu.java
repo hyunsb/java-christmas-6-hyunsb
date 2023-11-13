@@ -53,6 +53,10 @@ public enum Menu {
         return menuName;
     }
 
+    public int getPrice() {
+        return price;
+    }
+
     public boolean isBeverage() {
         return category.equals(Category.BEVERAGE);
     }

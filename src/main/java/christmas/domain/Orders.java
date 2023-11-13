@@ -1,5 +1,7 @@
 package christmas.domain;
 
+import christmas.dto.OrderDto;
+import christmas.dto.OrdersDto;
 import christmas.errors.ErrorMessage;
 
 import java.util.HashSet;
@@ -58,6 +60,12 @@ public class Orders {
         if (totalOrderCount > MAX_ORDER_COUNT) {
             throw new IllegalArgumentException(ErrorMessage.ORDERS_IS_NOT_INVALID.message());
         }
+    }
+
+    public OrdersDto toDto() {
+        List<OrderDto> orderDtos = orders.stream().map(Order::toDto).toList();
+
+        return new OrdersDto(orderDtos);
     }
 
     @Override

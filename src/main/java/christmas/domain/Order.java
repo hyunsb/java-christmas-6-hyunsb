@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import christmas.dto.OrderDto;
 import christmas.errors.ErrorMessage;
 
 import java.util.Objects;
@@ -30,10 +31,19 @@ public class Order {
         return count;
     }
 
+    protected int getAmount() {
+        return menu.getPrice() * count;
+    }
+
     public boolean isBeverageOrder() {
         return menu.isBeverage();
     }
 
+    protected OrderDto toDto() {
+        return new OrderDto(menu.getMenuName(), count);
+    }
+
+    // Set을 통하여 메뉴 중복 검증 로직을 수행하기 위한 재정의
     @Override
     public boolean equals(Object target) {
         if (this == target) return true;
