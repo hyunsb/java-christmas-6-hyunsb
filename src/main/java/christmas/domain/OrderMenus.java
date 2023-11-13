@@ -9,53 +9,53 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-public class Orders {
+public class OrderMenus {
 
     private static final int MAX_ORDER_COUNT = 20;
 
-    private final List<Order> orders;
+    private final List<OrderMenu> orderMenus;
 
-    public Orders(List<Order> orders) {
-        this.validate(orders);
-        this.orders = orders;
+    public OrderMenus(List<OrderMenu> orderMenus) {
+        this.validate(orderMenus);
+        this.orderMenus = orderMenus;
     }
 
-    private void validate(List<Order> orders) throws IllegalArgumentException {
-        this.validateIsNotEmpty(orders);
-        this.validateIsNotDuplicated(orders);
-        this.validateOnlyBeverageOrder(orders);
-        this.validateTotalOderCount(orders);
+    private void validate(List<OrderMenu> orderMenus) throws IllegalArgumentException {
+        this.validateIsNotEmpty(orderMenus);
+        this.validateIsNotDuplicated(orderMenus);
+        this.validateOnlyBeverageOrder(orderMenus);
+        this.validateTotalOderCount(orderMenus);
     }
 
-    private void validateIsNotEmpty(List<Order> orders) throws IllegalArgumentException {
-        if (orders.isEmpty()) {
+    private void validateIsNotEmpty(List<OrderMenu> orderMenus) throws IllegalArgumentException {
+        if (orderMenus.isEmpty()) {
             throw new IllegalArgumentException(ErrorMessage.ORDERS_IS_NOT_INVALID.message());
         }
     }
 
-    private void validateIsNotDuplicated(List<Order> orders) {
-        Set<Order> duplicateCheck = new HashSet<>();
-        orders.forEach(order -> {
+    private void validateIsNotDuplicated(List<OrderMenu> orderMenus) {
+        Set<OrderMenu> duplicateCheck = new HashSet<>();
+        orderMenus.forEach(order -> {
             if (!duplicateCheck.add(order)) {
                 throw new IllegalArgumentException(ErrorMessage.ORDERS_IS_NOT_INVALID.message());
             }
         });
     }
 
-    private void validateOnlyBeverageOrder(List<Order> orders) {
-        int beverageOrderCount = orders.stream()
-                .filter(Order::isBeverageOrder)
+    private void validateOnlyBeverageOrder(List<OrderMenu> orderMenus) {
+        int beverageOrderCount = orderMenus.stream()
+                .filter(OrderMenu::isBeverageOrder)
                 .toList()
                 .size();
 
-        if (orders.size() == beverageOrderCount) {
+        if (orderMenus.size() == beverageOrderCount) {
             throw new IllegalArgumentException(ErrorMessage.ORDERS_IS_NOT_INVALID.message());
         }
     }
 
-    private void validateTotalOderCount(List<Order> orders) {
-        int totalOrderCount = orders.stream()
-                .mapToInt(Order::getCount)
+    private void validateTotalOderCount(List<OrderMenu> orderMenus) {
+        int totalOrderCount = orderMenus.stream()
+                .mapToInt(OrderMenu::getCount)
                 .sum();
 
         if (totalOrderCount > MAX_ORDER_COUNT) {
@@ -72,17 +72,17 @@ public class Orders {
     }
 
     private List<OrderDto> getOrderDtos() {
-        return orders.stream().map(Order::toDto).toList();
+        return orderMenus.stream().map(OrderMenu::toDto).toList();
     }
 
     private int calculateTotalOrderAmount() {
-        return orders.stream().mapToInt(Order::getAmount).sum();
+        return orderMenus.stream().mapToInt(OrderMenu::getAmount).sum();
     }
 
     @Override
     public String toString() {
         return "Orders{" +
-                "orders=" + orders +
+                "orders=" + orderMenus +
                 '}';
     }
 }

@@ -5,12 +5,12 @@ import christmas.errors.ErrorMessage;
 
 import java.util.Objects;
 
-public class Order {
+public class OrderMenu {
 
     private final Menu menu;
     private final int count;
 
-    private Order(Menu menu, int count) throws IllegalArgumentException {
+    private OrderMenu(Menu menu, int count) throws IllegalArgumentException {
         this.validateCount(count);
         this.menu = menu;
         this.count = count;
@@ -22,9 +22,9 @@ public class Order {
         }
     }
 
-    public static Order from(String menuName, int count) throws IllegalArgumentException {
+    public static OrderMenu from(String menuName, int count) throws IllegalArgumentException {
         Menu menu = Menu.from(menuName);
-        return new Order(menu, count);
+        return new OrderMenu(menu, count);
     }
 
     protected int getCount() {
@@ -48,7 +48,7 @@ public class Order {
     public boolean equals(Object target) {
         if (this == target) return true;
         if (target == null || getClass() != target.getClass()) return false;
-        return this.menu.equals(((Order) target).menu);
+        return this.menu.equals(((OrderMenu) target).menu);
     }
 
     @Override

@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class OrderTest {
+class OrderMenuTest {
 
     private Stream<Arguments> provideMenuNameAndCountValues() {
         return Stream.of(
@@ -40,14 +40,14 @@ class OrderTest {
     @ParameterizedTest
     @MethodSource("provideMenuNameAndCountValues")
     void 인스턴스_생성_테스트(String menuName, int count) {
-        assertDoesNotThrow(() -> Order.from(menuName, count));
+        assertDoesNotThrow(() -> OrderMenu.from(menuName, count));
     }
 
     @DisplayName("존재하지 않는 메뉴가 주어지는 경우 예외를 발생한다.")
     @ParameterizedTest
     @ValueSource(strings = {"ㅇㄴㅁㄴㅇ", "ㅇㅇㄷㄷ", "ㄹ개ㅏㄱㄷ"})
     void 메뉴_검증_테스트(String menuName) {
-        assertThatThrownBy(() -> Order.from(menuName, 1))
+        assertThatThrownBy(() -> OrderMenu.from(menuName, 1))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining(ErrorMessage.ORDERS_IS_NOT_INVALID.message());
     }
@@ -64,7 +64,7 @@ class OrderTest {
     @ParameterizedTest
     @MethodSource("provideMenuNameAndNegativeCountValues")
     void 카운트_검증_테스트(String menuName, int count) {
-        assertThatThrownBy(() -> Order.from(menuName, count))
+        assertThatThrownBy(() -> OrderMenu.from(menuName, count))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining(ErrorMessage.ORDERS_IS_NOT_INVALID.message());
     }

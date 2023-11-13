@@ -11,20 +11,20 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
-class OrdersTest {
+class OrderMenusTest {
 
-    private List<Order> pickOrders(int count) {
-        Set<Order> orderDuplicateCheck = new HashSet<>();
-        while (orderDuplicateCheck.size() < count) {
-            Order order = Order.from(pickRandomMenuName(), pickRandomInteger());
-            orderDuplicateCheck.add(order);
+    private List<OrderMenu> pickOrders(int count) {
+        Set<OrderMenu> orderMenuDuplicateCheck = new HashSet<>();
+        while (orderMenuDuplicateCheck.size() < count) {
+            OrderMenu orderMenu = OrderMenu.from(pickRandomMenuName(), pickRandomInteger());
+            orderMenuDuplicateCheck.add(orderMenu);
         }
 
-        List<Order> orders = orderDuplicateCheck.stream().toList();
-        if (orders.size() == this.getBeverageCount(orders)) {
+        List<OrderMenu> orderMenus = orderMenuDuplicateCheck.stream().toList();
+        if (orderMenus.size() == this.getBeverageCount(orderMenus)) {
             return pickOrders(count);
         }
-        return orders;
+        return orderMenus;
     }
 
     private String pickRandomMenuName() {
@@ -38,9 +38,9 @@ class OrdersTest {
         return random.nextInt(1, 5);
     }
 
-    private int getBeverageCount(List<Order> orders) {
-        return orders.stream()
-                .filter(Order::isBeverageOrder)
+    private int getBeverageCount(List<OrderMenu> orderMenus) {
+        return orderMenus.stream()
+                .filter(OrderMenu::isBeverageOrder)
                 .toList()
                 .size();
     }
@@ -49,9 +49,9 @@ class OrdersTest {
     @ParameterizedTest
     @ValueSource(ints = {1, 2, 4})
     void 인스턴스_생성_테스트(int count) {
-        List<Order> orders = pickOrders(count);
+        List<OrderMenu> orderMenus = pickOrders(count);
 
-        assertDoesNotThrow(() -> new Orders(orders));
+        assertDoesNotThrow(() -> new OrderMenus(orderMenus));
     }
 
     @DisplayName("중복된 메뉴가 포함된 경우 예외를 발생한다.")
@@ -59,13 +59,13 @@ class OrdersTest {
     void 중복_검증_테스트() {
         String menuNam = this.pickRandomMenuName();
 
-        List<Order> orders = List.of(
-                Order.from(menuNam, pickRandomInteger()),
-                Order.from(menuNam, pickRandomInteger()),
-                Order.from(menuNam, pickRandomInteger())
+        List<OrderMenu> orderMenus = List.of(
+                OrderMenu.from(menuNam, pickRandomInteger()),
+                OrderMenu.from(menuNam, pickRandomInteger()),
+                OrderMenu.from(menuNam, pickRandomInteger())
         );
 
-        Assertions.assertThatThrownBy(() -> new Orders(orders))
+        Assertions.assertThatThrownBy(() -> new OrderMenus(orderMenus))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining(ErrorMessage.ORDERS_IS_NOT_INVALID.message());
     }
@@ -73,7 +73,7 @@ class OrdersTest {
     @DisplayName("빈 리스트가 주어진 경우 예외를 발생한다.")
     @Test
     void 빈_리스트_검증_테스트() {
-        Assertions.assertThatThrownBy(() -> new Orders(List.of()))
+        Assertions.assertThatThrownBy(() -> new OrderMenus(List.of()))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining(ErrorMessage.ORDERS_IS_NOT_INVALID.message());
     }
@@ -82,9 +82,9 @@ class OrdersTest {
     @Test
     void 음료_리스트_검증_테스트() {
         String menuName = this.pickRandomBeverageMenuName();
-        List<Order> orders = List.of(Order.from(menuName, pickRandomInteger()));
+        List<OrderMenu> orderMenus = List.of(OrderMenu.from(menuName, pickRandomInteger()));
 
-        Assertions.assertThatThrownBy(() -> new Orders(orders))
+        Assertions.assertThatThrownBy(() -> new OrderMenus(orderMenus))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining(ErrorMessage.ORDERS_IS_NOT_INVALID.message());
     }
@@ -99,7 +99,7 @@ class OrdersTest {
                 .orElseThrow()
                 .getMenuName();
 
-        Assertions.assertThatThrownBy(() -> new Orders(List.of(Order.from(menuName, count))))
+        Assertions.assertThatThrownBy(() -> new OrderMenus(List.of(OrderMenu.from(menuName, count))))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining(ErrorMessage.ORDERS_IS_NOT_INVALID.message());
     }
