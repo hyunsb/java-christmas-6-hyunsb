@@ -6,6 +6,7 @@ import christmas.errors.ErrorMessage;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 public class Orders {
@@ -63,10 +64,19 @@ public class Orders {
     }
 
     public OrdersDto toDto() {
-        List<OrderDto> orderDtos = orders.stream().map(Order::toDto).toList();
-        int totalOrderAmount = orders.stream().mapToInt(Order::getAmount).sum();
+        List<OrderDto> orderDtos = this.getOrderDtos();
+        int totalOrderAmount = this.calculateTotalOrderAmount();
+        Optional<Gift> gift = Gift.select(totalOrderAmount);
 
-        return new OrdersDto(orderDtos, totalOrderAmount);
+        return new OrdersDto(orderDtos, totalOrderAmount, gift);
+    }
+
+    private List<OrderDto> getOrderDtos() {
+        return orders.stream().map(Order::toDto).toList();
+    }
+
+    private int calculateTotalOrderAmount() {
+        return orders.stream().mapToInt(Order::getAmount).sum();
     }
 
     @Override

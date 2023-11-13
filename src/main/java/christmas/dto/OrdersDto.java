@@ -1,7 +1,10 @@
 package christmas.dto;
 
-import java.util.List;
+import christmas.domain.Gift;
 
-public record OrdersDto(List<OrderDto> orders, int totalOrderAmount) {
+import java.util.List;
+import java.util.Optional;
+
+public record OrdersDto(List<OrderDto> orders, int totalOrderAmount, Optional<Gift> gift) {
 
 }

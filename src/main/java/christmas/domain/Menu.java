@@ -35,15 +35,14 @@ public enum Menu {
     }
 
     private final String menuName;
-
     private final int price;
     private final Category category;
+
     Menu(String menuName, int price, Category category) {
         this.menuName = menuName;
         this.price = price;
         this.category = category;
     }
-
     public static Menu from(String menu) throws IllegalArgumentException {
         return Optional.ofNullable(MENU_NAME_CLASSIFIER.get(menu))
                 .orElseThrow(() -> new IllegalArgumentException(ErrorMessage.ORDERS_IS_NOT_INVALID.message()));
