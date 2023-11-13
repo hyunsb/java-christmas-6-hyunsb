@@ -1,6 +1,6 @@
 package christmas.dto;
 
-import christmas.domain.Gift;
+import christmas.domain.benefit.Gift;
 
 import java.util.List;
 import java.util.Optional;

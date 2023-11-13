@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import christmas.domain.benefit.Gift;
 import christmas.dto.OrderDto;
 import christmas.dto.OrdersDto;
 import christmas.errors.ErrorMessage;
