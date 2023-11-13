@@ -1,6 +1,6 @@
 package christmas.domain;
 
-import christmas.domain.benefit.Badge;
+import christmas.domain.event.benefit.Badge;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
