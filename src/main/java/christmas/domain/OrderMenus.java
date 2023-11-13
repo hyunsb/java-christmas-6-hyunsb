@@ -13,7 +13,7 @@ public class OrderMenus {
 
     private static final int MAX_ORDER_COUNT = 20;
 
-    private final List<OrderMenu> orderMenus;
+    private final List<OrderMenu> orderMenus; // TODO: Map을 사용하는 방식으로 리팩터링할 수 있을 것 같음.
 
     public OrderMenus(List<OrderMenu> orderMenus) {
         this.validate(orderMenus);
@@ -77,6 +77,20 @@ public class OrderMenus {
 
     private int calculateTotalOrderAmount() {
         return orderMenus.stream().mapToInt(OrderMenu::getAmount).sum();
+    }
+
+    public int getTotalCountOfMainMenu() {
+        return orderMenus.stream()
+                .filter(OrderMenu::isMainOrder)
+                .mapToInt(OrderMenu::getCount)
+                .sum();
+    }
+
+    public int getTotalCountOfDessertMenu() {
+        return orderMenus.stream()
+                .filter(OrderMenu::isDessertOrder)
+                .mapToInt(OrderMenu::getCount)
+                .sum();
     }
 
     @Override

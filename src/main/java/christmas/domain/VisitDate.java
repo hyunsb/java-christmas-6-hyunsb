@@ -2,6 +2,9 @@ package christmas.domain;
 
 import christmas.errors.ErrorMessage;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,11 +15,11 @@ public class VisitDate {
     private static final int MIN_DATE = 1;
     private static final int MAX_DATE = 31;
 
-    private final Integer visitDate;
+    private final LocalDate visitDate;
 
     private VisitDate(Integer visitDate) {
         this.validate(visitDate);
-        this.visitDate = visitDate;
+        this.visitDate = LocalDate.of(2023, 12, visitDate);
         VISIT_DATE_CACHE.put(visitDate, this);
     }
 
@@ -31,6 +34,23 @@ public class VisitDate {
             new VisitDate(visitDate);
         }
         return VISIT_DATE_CACHE.get(visitDate);
+    }
+
+    public int calculateDifferenceDaysFrom(LocalDate targetDate) {
+        int days = (int) ChronoUnit.DAYS.between(visitDate, targetDate);
+        return Math.abs(days);
+    }
+
+    public boolean isDateInRange(LocalDate start, LocalDate end) {
+        return !visitDate.isBefore(start) && !visitDate.isAfter(end);
+    }
+
+    public boolean isOnDayOfWeek(DayOfWeek dayOfWeek) {
+        return visitDate.getDayOfWeek().equals(dayOfWeek);
+    }
+
+    public boolean isOnDay(Integer day) {
+        return visitDate.getDayOfMonth() == day;
     }
 
     @Override

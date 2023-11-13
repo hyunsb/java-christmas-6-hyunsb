@@ -1,8 +1,8 @@
 package christmas.view;
 
 import camp.nextstep.edu.missionutils.Console;
-import christmas.domain.Order;
-import christmas.domain.Orders;
+import christmas.domain.OrderMenu;
+import christmas.domain.OrderMenus;
 import christmas.domain.VisitDate;
 import christmas.errors.ErrorMessage;
 
@@ -35,7 +35,7 @@ public class InputView {
         return repeatUntilNoException(() -> VisitDate.from(readToInt(Console.readLine())));
     }
 
-    public static Orders inputOrders() {
+    public static OrderMenus inputOrders() {
         System.out.println("주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)");
         return repeatUntilNoException(() -> parseOrders(Console.readLine()));
     }
@@ -48,21 +48,21 @@ public class InputView {
         }
     }
 
-    private static Orders parseOrders(String orders) {
-        return new Orders(Arrays.stream(orders.split(","))
+    private static OrderMenus parseOrders(String orders) {
+        return new OrderMenus(Arrays.stream(orders.split(","))
                 .map(String::trim)
                 .map(InputView::parseOrder)
                 .toList());
     }
 
-    private static Order parseOrder(String order) {
+    private static OrderMenu parseOrder(String order) {
         validateIsCorrectMenuFormat(order);
         String[] menuAndCount = order.split("-");
 
         String menu = menuAndCount[0];
         int count = readToInt(menuAndCount[1]);
 
-        return Order.from(menu, count);
+        return OrderMenu.from(menu, count);
     }
 
     private static void validateIsCorrectMenuFormat(String read) {

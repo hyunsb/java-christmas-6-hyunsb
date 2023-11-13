@@ -43,6 +43,7 @@ public enum Menu {
         this.price = price;
         this.category = category;
     }
+
     public static Menu from(String menu) throws IllegalArgumentException {
         return Optional.ofNullable(MENU_NAME_CLASSIFIER.get(menu))
                 .orElseThrow(() -> new IllegalArgumentException(ErrorMessage.ORDERS_IS_NOT_INVALID.message()));
@@ -58,5 +59,13 @@ public enum Menu {
 
     public boolean isBeverage() {
         return category.equals(Category.BEVERAGE);
+    }
+
+    public boolean isMain() {
+        return category.equals(Category.MAIN);
+    }
+
+    public boolean isDessert() {
+        return category.equals(Category.DESSERT);
     }
 }

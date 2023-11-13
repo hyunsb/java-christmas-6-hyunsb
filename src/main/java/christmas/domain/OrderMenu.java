@@ -39,6 +39,14 @@ public class OrderMenu {
         return menu.isBeverage();
     }
 
+    public boolean isMainOrder() {
+        return menu.isMain();
+    }
+
+    public boolean isDessertOrder() {
+        return menu.isDessert();
+    }
+
     protected OrderDto toDto() {
         return new OrderDto(menu.getMenuName(), count);
     }
