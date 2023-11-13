@@ -1,6 +1,6 @@
 package christmas.domain.order;
 
-import christmas.dto.OrderDto;
+import christmas.dto.OrderMenuDto;
 import christmas.errors.ErrorMessage;
 
 import java.util.Objects;
@@ -47,8 +47,8 @@ public class OrderMenu {
         return menu.isDessert();
     }
 
-    protected OrderDto toDto() {
-        return new OrderDto(menu.getMenuName(), count);
+    protected OrderMenuDto toDto() {
+        return new OrderMenuDto(menu.getMenuName(), count);
     }
 
     // Set을 통하여 메뉴 중복 검증 로직을 수행하기 위한 재정의

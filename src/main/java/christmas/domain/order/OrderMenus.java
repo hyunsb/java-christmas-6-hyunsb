@@ -1,8 +1,8 @@
 package christmas.domain.order;
 
 import christmas.domain.benefit.Gift;
-import christmas.dto.OrderDto;
-import christmas.dto.OrdersDto;
+import christmas.dto.OrderMenuDto;
+import christmas.dto.OrderMenusDto;
 import christmas.errors.ErrorMessage;
 
 import java.util.HashSet;
@@ -64,15 +64,15 @@ public class OrderMenus {
         }
     }
 
-    public OrdersDto toDto() {
-        List<OrderDto> orderDtos = this.getOrderDtos();
+    public OrderMenusDto toDto() {
+        List<OrderMenuDto> orderMenuDtos = this.getOrderDtos();
         int totalOrderAmount = this.calculateTotalOrderAmount();
         Optional<Gift> gift = Gift.select(totalOrderAmount);
 
-        return new OrdersDto(orderDtos, totalOrderAmount, gift);
+        return new OrderMenusDto(orderMenuDtos, totalOrderAmount, gift);
     }
 
-    private List<OrderDto> getOrderDtos() {
+    private List<OrderMenuDto> getOrderDtos() {
         return orderMenus.stream()
                 .map(OrderMenu::toDto)
                 .toList();
