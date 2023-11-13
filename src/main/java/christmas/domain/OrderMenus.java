@@ -72,11 +72,15 @@ public class OrderMenus {
     }
 
     private List<OrderDto> getOrderDtos() {
-        return orderMenus.stream().map(OrderMenu::toDto).toList();
+        return orderMenus.stream()
+                .map(OrderMenu::toDto)
+                .toList();
     }
 
     private int calculateTotalOrderAmount() {
-        return orderMenus.stream().mapToInt(OrderMenu::getAmount).sum();
+        return orderMenus.stream()
+                .mapToInt(OrderMenu::getAmount)
+                .sum();
     }
 
     public int getTotalCountOfMainMenu() {
