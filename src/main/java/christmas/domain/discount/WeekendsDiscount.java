@@ -1,4 +1,4 @@
-package christmas.domain.Discount;
+package christmas.domain.discount;
 
 import christmas.domain.Order;
 
@@ -7,31 +7,25 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class WeekdaysDiscount implements Discount {
+public class WeekendsDiscount implements Discount {
 
     private static final List<DayOfWeek> DISCOUNTED_DAY_OF_WEEKS;
     private static final int DISCOUNT_PER_COUNT = 2023;
 
     static {
-        DISCOUNTED_DAY_OF_WEEKS = List.of(
-                DayOfWeek.SUNDAY,
-                DayOfWeek.MONDAY,
-                DayOfWeek.TUESDAY,
-                DayOfWeek.WEDNESDAY,
-                DayOfWeek.THURSDAY
-        );
+        DISCOUNTED_DAY_OF_WEEKS = List.of(DayOfWeek.FRIDAY, DayOfWeek.SATURDAY);
     }
 
-    private static WeekdaysDiscount instance;
+    private static WeekendsDiscount instance;
 
-    public static WeekdaysDiscount getInstance() {
+    public static WeekendsDiscount getInstance() {
         if (Objects.isNull(instance)) {
-            instance = new WeekdaysDiscount();
+            instance = new WeekendsDiscount();
         }
         return instance;
     }
 
-    private WeekdaysDiscount() {
+    private WeekendsDiscount() {
 
     }
 
@@ -44,7 +38,7 @@ public class WeekdaysDiscount implements Discount {
     }
 
     private Optional<Integer> calculateDiscountAmount(Order order) {
-        int totalCountOfDessertMenu = order.getTotalCountOfDessertMenu();
-        return Optional.of(totalCountOfDessertMenu * DISCOUNT_PER_COUNT);
+        int totalCountOfMainMenu = order.getTotalCountOfMainMenu();
+        return Optional.of(totalCountOfMainMenu * DISCOUNT_PER_COUNT);
     }
 }
