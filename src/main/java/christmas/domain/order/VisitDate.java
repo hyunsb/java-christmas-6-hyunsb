@@ -1,5 +1,6 @@
 package christmas.domain.order;
 
+import christmas.dto.VisitDateDto;
 import christmas.errors.ErrorMessage;
 
 import java.time.DayOfWeek;
@@ -51,6 +52,10 @@ public class VisitDate {
 
     public boolean isOnDay(Integer day) {
         return visitDate.getDayOfMonth() == day;
+    }
+
+    public VisitDateDto toDto() {
+        return new VisitDateDto(visitDate);
     }
 
     @Override

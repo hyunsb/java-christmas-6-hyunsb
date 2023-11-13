@@ -1,6 +1,7 @@
 package christmas.domain.order;
 
 import christmas.dto.OrderMenuDto;
+import christmas.dto.VisitDateDto;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -18,6 +19,10 @@ public class Order {
 
     public List<OrderMenuDto> getOrderMenuDtos() {
         return orderMenus.getOrderMenuDtos();
+    }
+
+    public VisitDateDto getVisitDateDto() {
+        return visitDate.toDto();
     }
 
     public int getTotalOrderAmount() {
