@@ -64,8 +64,9 @@ public class Orders {
 
     public OrdersDto toDto() {
         List<OrderDto> orderDtos = orders.stream().map(Order::toDto).toList();
+        int totalOrderAmount = orders.stream().mapToInt(Order::getAmount).sum();
 
-        return new OrdersDto(orderDtos);
+        return new OrdersDto(orderDtos, totalOrderAmount);
     }
 
     @Override
