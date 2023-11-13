@@ -1,6 +1,6 @@
 package christmas.domain.benefit;
 
-import christmas.domain.Menu;
+import christmas.domain.order.Menu;
 
 import java.util.Optional;
 

@@ -1,6 +1,6 @@
 package christmas.domain.discount;
 
-import christmas.domain.Order;
+import christmas.domain.order.Order;
 
 import java.util.List;
 import java.util.Objects;

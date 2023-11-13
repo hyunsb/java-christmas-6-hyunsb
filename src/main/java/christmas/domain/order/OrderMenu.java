@@ -1,4 +1,4 @@
-package christmas.domain;
+package christmas.domain.order;
 
 import christmas.dto.OrderDto;
 import christmas.errors.ErrorMessage;

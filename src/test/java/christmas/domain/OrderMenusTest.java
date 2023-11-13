@@ -1,5 +1,8 @@
 package christmas.domain;
 
+import christmas.domain.order.Menu;
+import christmas.domain.order.OrderMenu;
+import christmas.domain.order.OrderMenus;
 import christmas.errors.ErrorMessage;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

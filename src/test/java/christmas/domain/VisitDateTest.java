@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import christmas.domain.order.VisitDate;
 import christmas.errors.ErrorMessage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

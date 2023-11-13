@@ -1,5 +1,7 @@
 package christmas.domain;
 
+import christmas.domain.order.Menu;
+import christmas.domain.order.OrderMenu;
 import christmas.errors.ErrorMessage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.TestInstance;

@@ -1,9 +1,9 @@
 package christmas.view;
 
 import camp.nextstep.edu.missionutils.Console;
-import christmas.domain.OrderMenu;
-import christmas.domain.OrderMenus;
-import christmas.domain.VisitDate;
+import christmas.domain.order.OrderMenu;
+import christmas.domain.order.OrderMenus;
+import christmas.domain.order.VisitDate;
 import christmas.errors.ErrorMessage;
 
 import java.util.Arrays;

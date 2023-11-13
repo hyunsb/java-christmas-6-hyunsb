@@ -1,6 +1,6 @@
 package christmas.domain.discount;
 
-import christmas.domain.Order;
+import christmas.domain.order.Order;
 
 import java.time.LocalDate;
 import java.util.Objects;
