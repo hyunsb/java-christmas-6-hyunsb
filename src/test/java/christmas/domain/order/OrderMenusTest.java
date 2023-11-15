@@ -13,6 +13,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class OrderMenusTest {
 
@@ -113,5 +114,54 @@ class OrderMenusTest {
                 .findAny()
                 .orElseThrow(IllegalArgumentException::new)
                 .getMenuName();
+    }
+
+    @DisplayName("모든 주문 가격의 합계를 반환한다.")
+    @Test
+    void 주문_가격_합계_반환_테스트() {
+        // Given
+        List<OrderMenu> orderMenuList = List.of(
+                OrderMenu.from(Menu.BARBECUED_RIB.getMenuName(), 5),
+                OrderMenu.from(Menu.CHRISTMAS_PASTA.getMenuName(), 2)
+        );
+
+        // When
+        OrderMenus orderMenus = new OrderMenus(orderMenuList);
+
+        // Then
+        int expected = Menu.BARBECUED_RIB.getPrice() * 5 + Menu.CHRISTMAS_PASTA.getPrice() * 2;
+        assertEquals(expected, orderMenus.calculateTotalOrderAmount());
+    }
+
+    @DisplayName("주문 중 메인 메뉴의 주문 개수를 반환한다.")
+    @Test
+    void 메인_메뉴_개수_반환_테스트() {
+        // Given
+        List<OrderMenu> orderMenuList = List.of(
+                OrderMenu.from(Menu.BARBECUED_RIB.getMenuName(), 5),
+                OrderMenu.from(Menu.CHRISTMAS_PASTA.getMenuName(), 2)
+        );
+
+        // When
+        OrderMenus orderMenus = new OrderMenus(orderMenuList);
+
+        // Then
+        assertEquals(7, orderMenus.calculateTotalCountOfMainMenu());
+    }
+
+    @DisplayName("주문 중 디저트 메뉴의 주문 개수를 반환한다.")
+    @Test
+    void 디저트_메뉴_개수_반환_테스트() {
+        // Given
+        List<OrderMenu> orderMenuList = List.of(
+                OrderMenu.from(Menu.CHOCOLATE_CAKE.getMenuName(), 5),
+                OrderMenu.from(Menu.SEAFOOD_PASTA.getMenuName(), 2)
+        );
+
+        // When
+        OrderMenus orderMenus = new OrderMenus(orderMenuList);
+
+        // Then
+        assertEquals(5, orderMenus.calcualteTotalCountOfDessertMenu());
     }
 }
