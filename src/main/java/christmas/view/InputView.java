@@ -15,12 +15,13 @@ public class InputView {
 
     private static final String WELCOME = "안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.";
     private static final String INPUT_VISIT_DATE = "12월 중 식당 예상 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)";
+    private static final String INPUT_ORDERS = "주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)";
 
     private InputView() {
         throw new IllegalArgumentException();
     }
 
-    public static <T> T repeatUntilNoException(Supplier<T> supplier) {
+    private static <T> T repeatUntilNoException(Supplier<T> supplier) {
         while (true) {
             try {
                 return supplier.get();
@@ -32,19 +33,20 @@ public class InputView {
 
     public static VisitDate inputVisitDate() {
         System.out.println(WELCOME + "\n" + INPUT_VISIT_DATE);
-        return repeatUntilNoException(() -> VisitDate.from(readToInt(Console.readLine())));
+        return repeatUntilNoException(() ->
+                VisitDate.from(readToIntWithThrow(Console.readLine(), ErrorMessage.VISIT_IS_OUT_OF_BOUNDS.message())));
     }
 
     public static OrderMenus inputOrders() {
-        System.out.println("주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)");
+        System.out.println(INPUT_ORDERS);
         return repeatUntilNoException(() -> parseOrders(Console.readLine()));
     }
 
-    private static int readToInt(String read) throws IllegalArgumentException {
+    private static int readToIntWithThrow(String read, String message) throws IllegalArgumentException {
         try {
             return Integer.parseInt(read);
         } catch (NumberFormatException exception) {
-            throw new IllegalArgumentException(ErrorMessage.INPUT_INTEGER_VALUE.message());
+            throw new IllegalArgumentException(message);
         }
     }
 
@@ -60,7 +62,7 @@ public class InputView {
         String[] menuAndCount = order.split("-");
 
         String menu = menuAndCount[0];
-        int count = readToInt(menuAndCount[1]);
+        int count = readToIntWithThrow(menuAndCount[1], ErrorMessage.ORDERS_IS_NOT_INVALID.message());
 
         return OrderMenu.from(menu, count);
     }
