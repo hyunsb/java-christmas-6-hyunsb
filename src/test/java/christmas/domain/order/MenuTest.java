@@ -1,4 +1,4 @@
-package christmas.domain;
+package christmas.domain.order;
 
 import christmas.domain.order.Menu;
 import org.junit.jupiter.api.Assertions;
