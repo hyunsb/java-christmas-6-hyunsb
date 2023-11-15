@@ -17,6 +17,9 @@ public class InputView {
     private static final String INPUT_VISIT_DATE = "12월 중 식당 예상 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)";
     private static final String INPUT_ORDERS = "주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)";
 
+    private static final String INPUT_ORDER_FORMAT = "^(.+)-(\\d+)$";
+    private static final Pattern INPUT_ORDER_PATTERN = Pattern.compile(INPUT_ORDER_FORMAT);
+
     private InputView() {
         throw new IllegalArgumentException();
     }
@@ -68,9 +71,7 @@ public class InputView {
     }
 
     private static void validateIsCorrectMenuFormat(String read) {
-        String menuFormat = "^(.+)-(\\d+)$";
-        Pattern pattern = Pattern.compile(menuFormat);
-        Matcher matcher = pattern.matcher(read);
+        Matcher matcher = INPUT_ORDER_PATTERN.matcher(read);
         if (!matcher.matches()) {
             throw new IllegalArgumentException(ErrorMessage.ORDERS_IS_NOT_INVALID.message());
         }
