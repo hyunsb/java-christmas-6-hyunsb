@@ -57,11 +57,4 @@ public class VisitDate {
     public VisitDateDto toDto() {
         return new VisitDateDto(visitDate);
     }
-
-    @Override
-    public String toString() {
-        return "VisitDate{" +
-                "visitDate=" + visitDate +
-                '}';
-    }
 }

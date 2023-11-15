@@ -86,11 +86,4 @@ public class OrderMenus {
                 .mapToInt(OrderMenu::getCount)
                 .sum();
     }
-
-    @Override
-    public String toString() {
-        return "Orders{" +
-                "orders=" + orderMenus +
-                '}';
-    }
 }

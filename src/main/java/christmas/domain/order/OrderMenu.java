@@ -63,12 +63,4 @@ public class OrderMenu {
     public int hashCode() {
         return Objects.hash(menu);
     }
-
-    @Override
-    public String toString() {
-        return "Order{" +
-                "menu=" + menu +
-                ", count=" + count +
-                '}';
-    }
 }
