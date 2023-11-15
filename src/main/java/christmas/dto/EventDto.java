@@ -10,8 +10,8 @@ import java.util.Optional;
 
 public record EventDto(
         Map<String, Integer> discountStatistics,
-        Optional<Gift> giftOptional,
-        Optional<Badge> badgeOptional,
+        Optional<Gift> gift,
+        Optional<Badge> badge,
         int totalDiscountAmount) {
 
     public static EventDto from(Order order) {

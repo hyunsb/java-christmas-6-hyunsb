@@ -37,14 +37,18 @@ public class WeekdaysDiscount implements Discount {
 
     @Override
     public Optional<Integer> getDiscountAmount(Order order) {
-        if (!order.isVisitDateOnDayOfWeeks(DISCOUNTED_DAY_OF_WEEKS)) {
+        if (this.isInvalidMenuCount(order) || this.isNotDiscountPeriod(order)) {
             return Optional.empty();
         }
-        return this.calculateDiscountAmount(order);
-    }
-
-    private Optional<Integer> calculateDiscountAmount(Order order) {
         int totalCountOfDessertMenu = order.getTotalCountOfDessertMenu();
         return Optional.of(totalCountOfDessertMenu * DISCOUNT_PER_COUNT);
+    }
+
+    private boolean isNotDiscountPeriod(Order order) {
+        return !order.isVisitDateOnDayOfWeeks(DISCOUNTED_DAY_OF_WEEKS);
+    }
+
+    private boolean isInvalidMenuCount(Order order) {
+        return order.getTotalCountOfDessertMenu() == 0;
     }
 }

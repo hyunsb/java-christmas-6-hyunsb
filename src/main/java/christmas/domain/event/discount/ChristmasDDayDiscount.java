@@ -28,13 +28,9 @@ public class ChristmasDDayDiscount implements Discount {
 
     @Override
     public Optional<Integer> getDiscountAmount(Order order) {
-        if (!order.isVisitDateInRange(START_DATE, END_DATE)) { //TODO: 이부분을 검증 메서드로 변경하고 예외를 던져보자
+        if (!order.isVisitDateInRange(START_DATE, END_DATE)) {
             return Optional.empty();
         }
-        return calculateDiscountAmount(order);
-    }
-
-    private Optional<Integer> calculateDiscountAmount(Order order) {
         int days = order.calculateDifferenceDaysToVisitDateFrom(START_DATE);
         return Optional.of(DEFAULT_DISCOUNT_VALUE + DISCOUNT_PER_DAY * days);
     }

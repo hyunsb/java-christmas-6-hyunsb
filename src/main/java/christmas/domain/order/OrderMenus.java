@@ -11,7 +11,7 @@ public class OrderMenus {
 
     private static final int MAX_ORDER_COUNT = 20;
 
-    private final List<OrderMenu> orderMenus; // TODO: Map을 사용하는 방식으로 리팩터링할 수 있을 것 같음.
+    private final List<OrderMenu> orderMenus;
 
     public OrderMenus(List<OrderMenu> orderMenus) {
         this.validate(orderMenus);

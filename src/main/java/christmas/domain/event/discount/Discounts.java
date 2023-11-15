@@ -23,6 +23,7 @@ public enum Discounts {
 
     public static Map<String, Integer> getDiscountStatistics(Order order) {
         Map<String, Integer> discountStatistics = new HashMap<>();
+
         for (Discounts discounts : Discounts.values()) {
             Optional<Integer> discountAmount = discounts.discount.getDiscountAmount(order);
             discountAmount.ifPresent(amount -> {

@@ -13,7 +13,10 @@ public class WeekendsDiscount implements Discount {
     private static final int DISCOUNT_PER_COUNT = 2023;
 
     static {
-        DISCOUNTED_DAY_OF_WEEKS = List.of(DayOfWeek.FRIDAY, DayOfWeek.SATURDAY);
+        DISCOUNTED_DAY_OF_WEEKS = List.of(
+                DayOfWeek.FRIDAY,
+                DayOfWeek.SATURDAY
+        );
     }
 
     private static WeekendsDiscount instance;
@@ -31,14 +34,18 @@ public class WeekendsDiscount implements Discount {
 
     @Override
     public Optional<Integer> getDiscountAmount(Order order) {
-        if (!order.isVisitDateOnDayOfWeeks(DISCOUNTED_DAY_OF_WEEKS)) {
+        if (this.isInvalidMenuCount(order) || this.isNotDiscountPeriod(order)) {
             return Optional.empty();
         }
-        return this.calculateDiscountAmount(order);
-    }
-
-    private Optional<Integer> calculateDiscountAmount(Order order) {
         int totalCountOfMainMenu = order.getTotalCountOfMainMenu();
         return Optional.of(totalCountOfMainMenu * DISCOUNT_PER_COUNT);
+    }
+
+    private boolean isNotDiscountPeriod(Order order) {
+        return !order.isVisitDateOnDayOfWeeks(DISCOUNTED_DAY_OF_WEEKS);
+    }
+
+    private boolean isInvalidMenuCount(Order order) {
+        return order.getTotalCountOfMainMenu() == 0;
     }
 }
